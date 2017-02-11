@@ -13,7 +13,7 @@ cmfile = sys.argv[1]
 foundError = True
 count = 0
 while foundError and (count < 1000):
-    stream = os.popen("echo \"OS.Process.exit OS.Process.success;\" | sml -m " + cmfile)
+    stream = os.popen("echo \"OS.Process.exit OS.Process.success;\" | sml -m " + cmfile + " 2> /dev/null")
 
     foundError = False
     for line in stream:
@@ -21,7 +21,7 @@ while foundError and (count < 1000):
         if matchOpt != None:
             if "syntax error: " in line:
                 print "We can't fix syntax errors! That's on you!"
-                continue
+                sys.exit(1)
             foundError = True
             print "Found a type error, fixing it!"
             filename = matchOpt.group(1)
