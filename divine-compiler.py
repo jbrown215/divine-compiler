@@ -47,10 +47,13 @@ while foundError and (count < 1000):
                         # keep up to start col
                         content[i] = content[i][0:(startCol)] + "raise Err\n"
                     elif i > startRow and i < endRow:
-                        del content[i]
+                        content[i] = ""
                     elif i > startRow and i == endRow:
                         # keep after end col
-                        content[i] = content[i][(endCol):]
+                        if (endCol < len(content[i])):
+                            content[i] = content[i][(endCol):]
+                        else:
+                            content[i] = ""
                     elif i == startRow and i == endRow:
                         content[i] = (content[i][0:(startCol)]) + "raise Err" + (content[i][(endCol):])
                         if content[i] != '\n':
